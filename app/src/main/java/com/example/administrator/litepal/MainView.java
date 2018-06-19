@@ -4,29 +4,35 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainView extends AppCompatActivity {
 
-    Button mCreateDb, mInsertData, mDelete, mQueryAll, mUpdate;
+    private Button mCreateDb, mInsertData, mDelete, mQueryAll, mUpdate;
+    private ListView mListView;
 
     private final int NEW_DIARY_RESULTCODE = 1;//“增”返回值
     private final String TAG = "MainView";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
 
+        mListView = (ListView) this.findViewById(R.id.listView);
         mCreateDb = (Button) this.findViewById(R.id.createdb);
         mInsertData = (Button) this.findViewById(R.id.insert);
         mDelete = (Button) this.findViewById(R.id.delete);
@@ -43,15 +49,6 @@ public class MainView extends AppCompatActivity {
         mInsertData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Diary diary = new Diary();
-                diary.setId(1);
-                diary.setTitle("s1");
-                diary.setBody("where have a dog");
-                diary.setTime("2018.1.1");
-                diary.save();
-                */
-
                 Intent intent = new Intent(MainView.this,WriteView.class);
                 startActivityForResult(intent,1);
             }
@@ -70,23 +67,26 @@ public class MainView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 List<Diary> diarys = DataSupport.findAll(Diary.class);
+                List<Item> items = new ArrayList<Item>();
                 for(Diary diary : diarys){
-                    Log.v(TAG,"id == "+diary.getId());
-                    Log.v(TAG,"title == "+diary.getTitle());
-                    Log.v(TAG,"body == "+diary.getBody());
-                    Log.v(TAG,"time == "+diary.getTime());
+                    String idStr = String.valueOf(diary.getId());
+                    Item item = new Item(idStr,diary.getTitle(),diary.getTime());
+                    items.add(item);
                 }
+                if(items.isEmpty()){
+                    Toast.makeText(MainView.this, "arrlsDiary is Empty", Toast.LENGTH_SHORT).show();
+                }
+
+                DiaryAdapter adapter = new DiaryAdapter(MainView.this,R.layout.diary_item,items);
+                mListView.setAdapter(adapter);
+
             }
         });
 
         mUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Diary diary = new Diary();
-                diary.setBody("233333");
-                diary.updateAll("id = ?","1");
-                */
+
                 EditText et = (EditText) MainView.this.findViewById(R.id.rowId);
                 int  rowId = Integer.parseInt(et.getText().toString().trim());
 
@@ -150,4 +150,5 @@ public class MainView extends AppCompatActivity {
         }
 
     }
+
 }
