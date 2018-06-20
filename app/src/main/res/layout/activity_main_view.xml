@@ -7,7 +7,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="200sp"
+        android:layout_height="300sp"
         android:id="@+id/listView" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,31 +30,24 @@
             <Button
                 android:id="@+id/insert"
                 android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:text="增" />
+                android:layout_height="50sp"
+                android:text="+"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:background="@drawable/selector_button"/>
+            <Space
+                android:layout_width="80sp"
+                android:layout_height="50sp" />
 
             <Button
                 android:id="@+id/delete"
                 android:layout_width="50sp"
                 android:layout_height="wrap_content"
-                android:text="删" />
+                android:text="-"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:background="@drawable/selector_button"/>
 
-            <EditText
-                android:id="@+id/rowId"
-                android:layout_width="40sp"
-                android:layout_height="wrap_content"
-                android:text="ID"/>
-            <Button
-                android:id="@+id/update"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:text="改" />
-
-            <Button
-                android:id="@+id/query"
-                android:layout_width="50sp"
-                android:layout_height="wrap_content"
-                android:text="查" />
         </LinearLayout>
 
 
