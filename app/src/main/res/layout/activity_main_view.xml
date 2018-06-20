@@ -7,25 +7,16 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="300sp"
+        android:layout_height="400sp"
         android:id="@+id/listView" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="30sp">
-        <Button
-            android:id="@+id/createdb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="创建数据库" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="30sp">
 
             <Button
                 android:id="@+id/insert"
@@ -36,7 +27,7 @@
                 android:textSize="36sp"
                 android:background="@drawable/selector_button"/>
             <Space
-                android:layout_width="80sp"
+                android:layout_width="90sp"
                 android:layout_height="50sp" />
 
             <Button
@@ -51,8 +42,6 @@
         </LinearLayout>
 
 
-
-    </LinearLayout>
 
 
 </RelativeLayout>

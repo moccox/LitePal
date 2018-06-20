@@ -1,7 +1,6 @@
 package com.example.administrator.litepal;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -20,7 +19,7 @@ import java.util.List;
 
 public class MainView extends Activity implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener{
 
-    private Button mCreateDb, mInsertData, mDelete;
+    private Button mInsertData, mDelete;
     private ListView mListView;
     private int mItemId;//用来记录当前点击的项目ID
 
@@ -31,20 +30,15 @@ public class MainView extends Activity implements AdapterView.OnItemClickListene
 
         //初始化成员变量
         mListView = (ListView) this.findViewById(R.id.listView);
-        mCreateDb = (Button) this.findViewById(R.id.createdb);
         mInsertData = (Button) this.findViewById(R.id.insert);
         mDelete = (Button) this.findViewById(R.id.delete);
 
+        //创建数据库
+        LitePal.getDatabase();
         //初始化ListView
         listViewInit();
 
         //设置按钮监听
-        mCreateDb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LitePal.getDatabase();
-            }
-        });
 
         mInsertData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +116,7 @@ public class MainView extends Activity implements AdapterView.OnItemClickListene
 
     //将数据库里的部分内容写入ListView
     public void listViewInit(){
-        Toast.makeText(this, "有执行ListViewInit（）", Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this, "有执行ListViewInit（）", Toast.LENGTH_LONG).show();
         List<Diary> diarys = DataSupport.findAll(Diary.class);
         List<Item> items = new ArrayList<Item>();
         for(Diary diary : diarys){
@@ -131,7 +125,7 @@ public class MainView extends Activity implements AdapterView.OnItemClickListene
             items.add(item);
         }
         if(items.isEmpty()){
-            Toast.makeText(MainView.this, "arrlsDiary is Empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainView.this, "DataBase is Empty", Toast.LENGTH_LONG).show();
         }
 
         DiaryAdapter adapter = new DiaryAdapter(MainView.this,R.layout.diary_item,items);
